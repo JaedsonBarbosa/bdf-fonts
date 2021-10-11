@@ -55,19 +55,19 @@ export class Writer {
     maxWidth: number,
     align: TAlign
   ) {
-    // Remove todos os caracteres nao ASCII
-    text = text.replace(/[^\\x00-\\x7F]/g, '')
+    // Remove all non-ASCII characters.
+    text = text.replace(/[^\x00-\xFF]/g, '')
     const words = text.split(' ')
     let line = ''
     let metrics: IMetrics
     function getX() {
       const freeSpace = maxWidth - metrics.width
       switch (align) {
-        case 'esquerda':
+        case 'left':
           return x
-        case 'centro':
+        case 'center':
           return x + Math.floor(freeSpace / 2)
-        case 'direita':
+        case 'right':
           return x + freeSpace
       }
     }
@@ -94,4 +94,4 @@ interface IMetrics {
   height: number
 }
 
-export type TAlign = 'esquerda' | 'centro' | 'direita'
+export type TAlign = 'left' | 'center' | 'right'
