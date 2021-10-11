@@ -1,11 +1,17 @@
 {
   "name": "bdf-fonts",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A collection of ready-to-use bitmap fonts.",
   "author": "Jaedson Barbosa Serafim",
-  "keywords": ["bdf", "fonts", "canvas"],
+  "keywords": [
+    "bdf",
+    "fonts",
+    "canvas"
+  ],
   "license": "MIT",
-  "files": ["dist/**/*"],
+  "files": [
+    "dist/**/*"
+  ],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
