@@ -55,35 +55,34 @@ export class Writer {
     maxWidth: number,
     align: TAlign
   ) {
+    // Alocate space for the first line
+    y += this.lineHeight
+
     // Remove all non-ASCII characters.
     text = text.replace(/[^\x00-\xFF]/g, '')
+
     const words = text.split(' ')
     let line = ''
-    let metrics: IMetrics
+    let lineWidth: number = 0
     function getX() {
-      const freeSpace = maxWidth - metrics.width
-      switch (align) {
-        case 'left':
-          return x
-        case 'center':
-          return x + Math.floor(freeSpace / 2)
-        case 'right':
-          return x + freeSpace
+      if (align == 'left') return x
+      else {
+        let freeSpace = maxWidth - lineWidth
+        if (align == 'right') return x + freeSpace
+        else return x + Math.floor(freeSpace / 2)
       }
     }
-    y += this.lineHeight
     for (let n = 0; n < words.length; n++) {
       const testLine = line + words[n] + ' '
-      const newMetrics = this.measureText(testLine)
-      if (newMetrics.width > maxWidth && n > 0) {
+      const testLineWidth = this.measureText(testLine).width
+      if (testLineWidth > maxWidth && n > 0) {
         this.writeLine(line, getX(), y)
         line = words[n] + ' '
         y += this.lineHeight
-      } else {
-        line = testLine
-      }
-      metrics = newMetrics
+      } else line = testLine
+      lineWidth = testLineWidth
     }
+    lineWidth = this.measureText(line).width
     this.writeLine(line, getX(), y)
     return y
   }
