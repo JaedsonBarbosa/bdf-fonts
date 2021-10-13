@@ -40,8 +40,8 @@ export class Writer {
     for (var i = 0, len = text.length; i < len; i++) {
       const c = text[i].charCodeAt(0)
       const g = this.bdf[c]
-      ret.width += g['DWIDTH'].x
-      ret.height += g['DWIDTH'].y
+      ret.width += g['DWIDTH'].x * this.scale
+      ret.height += g['DWIDTH'].y * this.scale
     }
     return ret
   }
