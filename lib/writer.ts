@@ -4,23 +4,32 @@ export class Writer {
   constructor(
     public readonly ctx: CanvasRenderingContext2D,
     public bdf: IFont,
-    public lineHeight: number
+    public lineHeight: number,
+    public scale: 1 | 2 = 1
   ) {}
 
   private drawChar(c: number, bx: number, by: number) {
     const g = this.bdf[c]
     const b = g['BITMAP']
-    const ox = bx + g['BBox'] - 1
-    const oy = by - g['BBoy'] - g['BBh'] + 1
+    const ox = bx + g['BBox'] * this.scale - 1
+    const oy = by - g['BBoy'] * this.scale - g['BBh'] * this.scale + 1
     for (let y = 0, len = b.length; y < len; y++) {
       const l = b[y]
       for (let i = g.bits, x = 0; i >= 0; i--, x++) {
         if (((l >> i) & 0x01) == 1) {
-          this.ctx.fillRect(ox + x, oy + y, 1, 1)
+          this.ctx.fillRect(
+            ox + x * this.scale,
+            oy + y * this.scale,
+            this.scale,
+            this.scale
+          )
         }
       }
     }
-    return { x: bx + g['DWIDTH'].x, y: by + g['DWIDTH'].y }
+    return {
+      x: bx + g['DWIDTH'].x * this.scale,
+      y: by + g['DWIDTH'].y * this.scale,
+    }
   }
 
   private measureText(text: string): IMetrics {
