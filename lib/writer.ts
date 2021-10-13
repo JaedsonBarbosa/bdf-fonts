@@ -65,7 +65,7 @@ export class Writer {
     align: TAlign
   ) {
     // Alocate space for the first line
-    y += this.lineHeight
+    y += this.lineHeight * this.scale
 
     // Remove all non-ASCII characters.
     text = text.replace(/[^\x00-\xFF]/g, '')
@@ -87,7 +87,7 @@ export class Writer {
       if (testLineWidth > maxWidth && n > 0) {
         this.writeLine(line, getX(), y)
         line = words[n] + ' '
-        y += this.lineHeight
+        y += this.lineHeight * this.scale
       } else line = testLine
       lineWidth = testLineWidth
     }
