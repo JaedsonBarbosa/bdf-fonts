@@ -271,9 +271,10 @@ export function Write(
 ) {
   /** @param {number} code */
   function getGlyph(code) {
-    if (code > 127) code -= 161
-    if (code < 32) code = 32
-    const g = font[code - 32]
+    if (code >= 127) code -= 66 // 32 + 161 - 127
+    else code -= 32
+    if (code < 0) code = 32
+    const g = font[code]
     return g
   }
 
@@ -347,7 +348,7 @@ export function Write(
   }
   for (let n = 0; n < words.length; n++) {
     const testLine = line + words[n] + ' '
-    const testLineWidth = measureText(testLine).width
+    const testLineWidth = measureText(testLine)
     if (testLineWidth > maxWidth && n > 0) {
       writeLine(line, getX(), y)
       line = words[n] + ' '
@@ -355,7 +356,7 @@ export function Write(
     } else line = testLine
     lineWidth = testLineWidth
   }
-  lineWidth = measureText(line).width
+  lineWidth = measureText(line)
   writeLine(line, getX(), y)
   return y
 }
