@@ -9,26 +9,7 @@
     "canvas"
   ],
   "license": "MIT",
-  "files": [
-    "dist/**/*"
-  ],
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "scripts": {
-    "build": "run-s build:*",
-    "build:clean": "if exist lib\\fonts rmdir /s /q lib\\fonts",
-    "build:createFolder": "mkdir lib\\fonts",
-    "build:make": "ts-node scripts/build.ts",
-    "build:prettier": "prettier --write lib/fonts --no-semi --single-quote --end-of-line crlf",
-    "build:cleanDist": "if exist dist rmdir /s /q dist",
-    "build:tsc": "tsc"
-  },
-  "devDependencies": {
-    "@types/node": "^16.10.3",
-    "npm-run-all": "^4.1.5",
-    "prettier": "^2.4.1",
-    "ts-node": "^10.2.1"
-  },
+  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/JaedsonBarbosa/bdf-fonts.git"
