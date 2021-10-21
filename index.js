@@ -271,6 +271,7 @@ export function Write(
 ) {
   /** @param {number} code */
   function getGlyph(code) {
+    if (code === 160) code = 32 // Non-breaking space to simple space
     if (code >= 127) code -= 66 // 32 + 161 - 127
     else code -= 32
     if (code < 0) code = 32
